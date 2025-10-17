@@ -35,8 +35,8 @@
 
           postUnpack = ''
             sed -i 's/find_package(LibObs REQUIRED)/# LibObs config provided via CMake flags/' $sourceRoot/CMakeLists.txt
-            sed -i 's|\${LIBOBS_LIBRARIES}|obs|g' $sourceRoot/CMakeLists.txt
-            sed -i 's|\${OBS_FRONTEND_LIB}||g' $sourceRoot/CMakeLists.txt
+            sed -i 's|''${LIBOBS_LIBRARIES}|obs|g' $sourceRoot/CMakeLists.txt
+            sed -i 's|''${OBS_FRONTEND_LIB}||g' $sourceRoot/CMakeLists.txt
           '';
 
           postInstall = ''
