@@ -29,6 +29,7 @@
 
           cmakeFlags = [
             "-DBUILD_OUT_OF_TREE=On"
+            "-DCMAKE_MODULE_PATH=${pkgs.obs-studio}/lib/cmake/libobs"
           ];
 
           postInstall = ''
