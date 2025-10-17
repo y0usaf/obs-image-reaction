@@ -20,20 +20,17 @@
 
           nativeBuildInputs = with pkgs; [
             cmake
-            pkg-config
           ];
 
           buildInputs = with pkgs; [
             obs-studio
           ];
 
-          patches = [ ./libobs-cmake.patch ];
-
           cmakeFlags = [
             "-DBUILD_OUT_OF_TREE=On"
-            "-DLIBOBS_INCLUDE_DIR=${pkgs.obs-studio}/include/obs"
-            "-DLIBOBS_LIB=${pkgs.obs-studio}/lib"
           ];
+
+          env.CMAKE_PREFIX_PATH = "${pkgs.obs-studio}";
 
           installPhase = ''
             mkdir -p $out/lib/obs-plugins
@@ -47,14 +44,13 @@
             description = "OBS plugin for images that react to sound sources";
             homepage = "https://github.com/scaledteam/obs-image-reaction";
             license = licenses.gpl2Plus;
-            platforms = pkgs.obs-studio.meta.platforms;
+            platforms = obs-studio.meta.platforms;
           };
         };
 
         devShells.default = pkgs.mkShell {
           buildInputs = with pkgs; [
             cmake
-            pkg-config
             obs-studio
           ];
         };
