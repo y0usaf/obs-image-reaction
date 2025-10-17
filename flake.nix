@@ -41,7 +41,7 @@
             mkdir -p $out/share/obs/obs-plugins/obs-image-reaction
 
             cp libimage-reaction.so $out/lib/obs-plugins/
-            cp -r "$sourceRoot/data" "$out/share/obs/obs-plugins/obs-image-reaction/"
+            cp -r ../data "$out/share/obs/obs-plugins/obs-image-reaction/"
           '';
 
           meta = with pkgs.lib; {
