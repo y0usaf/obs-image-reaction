@@ -28,19 +28,12 @@
 
           cmakeFlags = [
             "-DBUILD_OUT_OF_TREE=On"
+            "-DLIBOBS_INCLUDE_DIR=${pkgs.obs-studio}/include/obs"
+            "-DLIBOBS_LIB=${pkgs.obs-studio}/lib"
           ];
 
-          # Work around missing LibObs CMake config by providing minimal stub
-          preConfigure = ''
-            mkdir -p cmake
-            cat > cmake/FindLibObs.cmake <<'EOF'
-              set(LIBOBS_INCLUDE_DIR ${pkgs.obs-studio}/include/obs)
-              set(LIBOBS_LIB ${pkgs.obs-studio}/lib)
-              set(LIBOBS_LIBRARIES obs)
-              set(OBS_FRONTEND_LIB "")
-              set(LibObs_FOUND TRUE)
-            EOF
-            export CMAKE_MODULE_PATH="$PWD/cmake:$CMAKE_MODULE_PATH"
+          postUnpack = ''
+            sed -i 's/find_package(LibObs REQUIRED)/set(LIBOBS_LIBRARIES obs)/' $sourceRoot/CMakeLists.txt
           '';
 
           installPhase = ''
