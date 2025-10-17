@@ -44,7 +44,7 @@
             description = "OBS plugin for images that react to sound sources";
             homepage = "https://github.com/scaledteam/obs-image-reaction";
             license = licenses.gpl2Plus;
-            platforms = obs-studio.meta.platforms;
+            platforms = pkgs.obs-studio.meta.platforms;
           };
         };
 
