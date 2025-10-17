@@ -27,24 +27,20 @@
             obs-studio
           ];
 
+          patches = [ ./libobs-cmake.patch ];
+
           cmakeFlags = [
             "-DBUILD_OUT_OF_TREE=On"
             "-DLIBOBS_INCLUDE_DIR=${pkgs.obs-studio}/include/obs"
             "-DLIBOBS_LIB=${pkgs.obs-studio}/lib"
           ];
 
-          postUnpack = ''
-            sed -i 's/find_package(LibObs REQUIRED)/# LibObs config provided via CMake flags/' $sourceRoot/CMakeLists.txt
-            sed -i 's|''${LIBOBS_LIBRARIES}|obs|g' $sourceRoot/CMakeLists.txt
-            sed -i 's|''${OBS_FRONTEND_LIB}||g' $sourceRoot/CMakeLists.txt
-          '';
-
           installPhase = ''
             mkdir -p $out/lib/obs-plugins
             mkdir -p $out/share/obs/obs-plugins/obs-image-reaction
 
             cp libimage-reaction.so $out/lib/obs-plugins/
-            cp -r ../data $out/share/obs/obs-plugins/obs-image-reaction/
+            cp -r "$sourceRoot/data" "$out/share/obs/obs-plugins/obs-image-reaction/"
           '';
 
           meta = with pkgs.lib; {
